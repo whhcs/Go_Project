@@ -38,20 +38,22 @@ type RetrieverPoster interface {
 
 func seesion(s RetrieverPoster) string {
 	s.Post(url, map[string]string{
-		"contents": "another fake imooc.com",
+		"contents": "another faked imooc.com",
 	})
 	return s.Get(url)
 }
 
 func inspect(r Retriever) {
-	fmt.Printf("%T %v\n", r, r)
-	fmt.Println("Type switch:")
+	fmt.Println("Inspecting", r)
+	fmt.Printf(" > %T %v\n", r, r)
+	fmt.Print(" > Type switch:")
 	switch v := r.(type) {
 	case *mock.Retriever:
 		fmt.Println("Contents:", v.Contents)
 	case *real.Retriever:
 		fmt.Println("UserAgent:", v.UserAgent)
 	}
+	fmt.Println()
 }
 
 func main() {
