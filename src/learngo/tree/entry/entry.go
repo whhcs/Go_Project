@@ -41,6 +41,12 @@ func main() {
 	root.Node.Traverse()
 	fmt.Println()
 
+	nodeCount := 0
+	root.Node.TraverseFunc(func(node *tree.Node) {
+		nodeCount++
+	})
+	fmt.Println("Node count:", nodeCount)
+
 	fmt.Print("My own post-order traversal: ")
 	root.postOrder()
 	fmt.Println()
