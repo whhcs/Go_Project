@@ -33,8 +33,17 @@ func TestSubstr(t *testing.T) {
 }
 
 func BenchmarkSubstr(b *testing.B) {
+	// 性能测试
 	s := "黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花"
+	for i := 0; i < 13; i++ {
+		s = s + s
+	}
 	ans := 8
+
+	b.Logf("len(s) = %d", len(s))
+
+	// 去掉上面准备测试数据的时间
+	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		actual := lengthOfLongestSubstring3(s)

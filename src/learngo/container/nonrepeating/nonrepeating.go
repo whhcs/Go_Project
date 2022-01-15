@@ -47,14 +47,22 @@ func lengthOfLongestSubstring2(s string) int {
 	return maxLength
 }
 
+var lastOccurred = make([]int, 0xffff) // 66535
+
 // 国际版
 func lengthOfLongestSubstring3(s string) int {
-	lastOccurred := make(map[rune]int)
+	// lastOccurred := make(map[rune]int)
+
+	// 用空间换时间
+	for i := range lastOccurred {
+		lastOccurred[i] = -1
+	}
+
 	start := 0
 	maxLength := 0
 
 	for i, ch := range []rune(s) {
-		if lastI, ok := lastOccurred[ch]; ok && lastI >= start {
+		if lastI := lastOccurred[ch]; lastI != -1 && lastI >= start {
 			start = lastI + 1
 		}
 		if i-start+1 > maxLength {
@@ -64,6 +72,7 @@ func lengthOfLongestSubstring3(s string) int {
 	}
 	return maxLength
 }
+
 func main() {
 	res := lengthOfLongestSubstring1("abcabcbb")
 	fmt.Println(res)
